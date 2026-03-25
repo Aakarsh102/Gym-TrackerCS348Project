@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Exercises - Gym Tracker{% endblock %}
+
+{% block content %}
+<div class="header-flex">
+    <h1>🏋️ Manage Exercises</h1>
+</div>
+
+<div class="card" style="max-width: 600px; margin-bottom: 2rem;">
+    <h3>Add New Exercise</h3>
+    <form method="POST" action="/exercises">
+        <div class="form-group">
+            <label for="name">Exercise Name</label>
+            <input type="text" name="name" id="name" placeholder="e.g. Deadlift, Running" required>
+        </div>
+        <div class="form-group">
+            <label for="category_id">Category</label>
+            <select name="category_id" id="category_id" required>
+                <option value="" disabled selected>Select a category...</option>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Exercise</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Available Exercises</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Exercise Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ex in exercises %}
+            <tr>
+                <td><span class="btn btn-info btn-sm"
+                        style="pointer-events: none; padding: 0.2rem 0.5rem; font-size: 0.8rem; border-radius: 4px;">{{
+                        ex.category.name }}</span></td>
+                <td><strong>{{ ex.name }}</strong></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Gym Tracker - Home{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Welcome to your Gym Tracker</h1>
+    <p>Track your workouts, log exercises, and view your performance analytics.</p>
+    <div class="hero-actions">
+        <a href="/workouts/new" class="btn btn-primary">Start a New Workout</a>
+        <a href="/report" class="btn btn-secondary">View Performance</a>
+    </div>
+</div>
+{% endblock %}

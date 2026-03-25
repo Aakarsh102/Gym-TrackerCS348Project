@@ -1,0 +1,63 @@
+Database Type: SQLite (Local File: gym.db)
+Framework: Flask-SQLAlchemy (Python ORM)
+
+Below is the database design, tables, primary keys (PK), foreign keys (FK), and their relationships:
+
+--------------------------------------------------
+1. Table: users
+--------------------------------------------------
+- id (Integer): Primary Key
+- username (String): Unique, Not Null
+- email (String): Unique, Not Null
+
+Relationships:
+- 1 User has many Workout Sessions.
+
+--------------------------------------------------
+2. Table: workout_categories
+--------------------------------------------------
+- id (Integer): Primary Key
+- name (String): Not Null
+- description (String)
+
+Relationships:
+- 1 Category has many Exercises.
+
+--------------------------------------------------
+3. Table: exercises
+--------------------------------------------------
+- id (Integer): Primary Key
+- name (String): Not Null
+- category_id (Integer): Foreign Key -> workout_categories.id (Indexed)
+
+Relationships:
+- Belongs to 1 Category.
+- 1 Exercise has many Workout Exercise Logs.
+
+--------------------------------------------------
+4. Table: workout_sessions
+--------------------------------------------------
+- id (Integer): Primary Key
+- date (Date): Not Null, Indexed
+- duration_minutes (Integer)
+- notes (Text)
+- user_id (Integer): Foreign Key -> users.id (Indexed)
+
+Relationships:
+- Belongs to 1 User.
+- 1 Workout Session has many Workout Exercise Logs (Deleting a session automatically cascades to delete all of its exercises).
+
+--------------------------------------------------
+5. Table: workout_exercises (The Performance Log)
+--------------------------------------------------
+- id (Integer): Primary Key
+- workout_session_id (Integer): Foreign Key -> workout_sessions.id (Indexed)
+- exercise_id (Integer): Foreign Key -> exercises.id (Indexed)
+- sets (Integer)
+- reps (Integer)
+- weight (Float: lbs/kg)
+
+Relationships:
+- Belongs to 1 Workout Session.
+- Belongs to 1 Exercise.
+- This is like a weak entity. 
